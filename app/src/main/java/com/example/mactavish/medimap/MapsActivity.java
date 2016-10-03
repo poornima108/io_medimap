@@ -53,8 +53,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     ImageView alert;
     double user_latitude;
     double user_longitude;
-    boolean gps_enabled;
-    Context context;
     LatLng user_coordinates;
     LatLng Shop1;
     LatLng Shop2;
@@ -156,8 +154,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Toast.makeText(MapsActivity.this, "Location permission is needed", Toast.LENGTH_SHORT).show();
             }
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
-
         }
+
+        Shop1=new LatLng(12.827763, 80.048680);
+        Shop2=new LatLng(12.901904, 80.093735);
+
+        mMap.addMarker(new MarkerOptions().position(Shop1).title("store1").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        mMap.addMarker(new MarkerOptions().position(Shop2).title("store2").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+
+        mMap.setOnMarkerClickListener(this);
 
 
     }
@@ -205,17 +210,13 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             if (currentLocation != null)
                 Log.d("CURR LOCATION VAL", String.valueOf(currentLocation));
             user_coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            Shop1=new LatLng(12.827763, 80.048680);
-            Shop2=new LatLng(12.901904, 80.093735);
 
 
-            mMap.addMarker(new MarkerOptions().position(user_coordinates).title("Marker at current location").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))).showInfoWindow();
+            //mMap.addMarker(new MarkerOptions().position(user_coordinates).title("Marker at current location").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker))).showInfoWindow();
             mMap.moveCamera(CameraUpdateFactory.newLatLng(user_coordinates));
-            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(user_coordinates,10));
+            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(user_coordinates,15));
 
-            mMap.addMarker(new MarkerOptions().position(Shop1).title("store1").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-            mMap.addMarker(new MarkerOptions().position(Shop2).title("store2").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-           mMap.setOnMarkerClickListener(this);
+
 
         }
 
