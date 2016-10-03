@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/lala"
+    android:layout_marginTop="150dp"
+    android:layout_marginLeft="100dp"
+    tools:context="com.example.poornima1.madimap2.MainActivity">
+
+</RelativeLayout>
