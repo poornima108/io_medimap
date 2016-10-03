@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -49,6 +50,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     LocationRequest mLocationRequest;
     Location currentLocation;
     GoogleApiClient client;
+    ImageView alert;
     double user_latitude;
     double user_longitude;
     boolean gps_enabled;
@@ -59,7 +61,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     String value2,address2,name2;
     DatabaseReference databaseReference;
     String abc="paracetamol";
-    String value,address,name;
+    String value,address,name,image;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -73,6 +75,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         client=new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
         client.connect();
         mLocationRequest=new LocationRequest();
+        alert= (ImageView) findViewById(R.id.abc);
         databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("https://medimap-fbbb5.firebaseio.com/");
 
         databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -82,6 +85,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 value=dataSnapshot.child(abc).child("store1").child("value").getValue().toString();
                 address=dataSnapshot.child(abc).child("store1").child("address").getValue().toString();
                 name=dataSnapshot.child(abc).child("store1").child("name").getValue().toString();
+                image=dataSnapshot.child(abc).child("store1").child("image").getValue().toString();
             }
 
             @Override
@@ -239,6 +243,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             AlertDialog.Builder cry = new AlertDialog.Builder(this);
             cry.setMessage("Address:   "+address+System.getProperty("line.separator")+"Quantity:   "+value);
             cry.setTitle(name);
+            cry.setIcon(R.drawable.marker);
+
             AlertDialog alertDialog = cry.create();
             alertDialog.show();
 
