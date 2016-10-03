@@ -3,12 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/b1"
+    android:background="@drawable/backa"
     tools:context="com.example.poornima1.madimap2.search">
 
     <android.support.v7.widget.ButtonBarLayout
         android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_height="45dp"
         android:id="@+id/search"
         android:src="@drawable/searchicon2"
         android:layout_marginRight="38dp"
@@ -21,13 +21,12 @@
     </android.support.v7.widget.ButtonBarLayout>
 
     <android.support.v4.widget.CircleImageView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="1000dp"
+        android:layout_height="50dp"
         android:background="@drawable/searchbox"
         android:id="@+id/view"
-        android:layout_alignTop="@+id/search"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginTop="221dp"
+        />
 
 
     <android.support.v7.widget.AppCompatAutoCompleteTextView
@@ -35,11 +34,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/searchbox"
         android:hint="Search Medicine"
-        android:layout_marginLeft="58dp"
-        android:layout_marginStart="58dp"
-        android:layout_alignTop="@+id/button"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:textSize="22dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="225dp"/>
 
     <Button
         android:layout_width="30dp"
@@ -47,9 +44,10 @@
         android:id="@+id/button"
         android:background="@drawable/searchicon2"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="127dp"
+        android:layout_marginRight="-35dp"
         android:layout_below="@+id/search"
-        android:layout_alignLeft="@+id/search"
-        android:layout_alignStart="@+id/search" />
+        android:layout_alignRight="@+id/search"
+        android:layout_alignEnd="@+id/search" />
 
 </RelativeLayout>
