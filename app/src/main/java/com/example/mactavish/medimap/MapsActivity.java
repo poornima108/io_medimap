@@ -1,12 +1,17 @@
 package com.example.mactavish.medimap;
 
 import android.annotation.TargetApi;
+import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.os.Build;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -31,10 +36,19 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 import com.google.android.gms.maps.model.PolylineOptions;
 
-public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
+public class MapsActivity extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener, GoogleMap.OnMarkerClickListener {
 
     private GoogleMap mMap;
     private static final int REQUEST_LOCATION = 0;
+    LocationRequest mLocationRequest;
+    Location currentLocation;
+    GoogleApiClient client;
+    double user_latitude;
+    double user_longitude;
+    LatLng user_coordinates;
+    LatLng cry_coordinates;
+    LatLng eklavya_coordinated;
+    private Polyline Line;
 
     @TargetApi(Build.VERSION_CODES.M)
     @Override
@@ -45,12 +59,16 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        client=new GoogleApiClient.Builder(this).addConnectionCallbacks(this).addOnConnectionFailedListener(this).addApi(LocationServices.API).build();
+        client.connect();
+        mLocationRequest=new LocationRequest();
 
 
     }
 
 
     /**
+     *
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
      * This is where we can add markers or lines, add listeners or move the camera. In this case,
@@ -97,11 +115,57 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             requestPermissions(new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, REQUEST_LOCATION);
 
         }
+    }
+    @Override
+    protected void onStart() {
+        Log.d("FUNCTION","onStart");
+        super.onStart();
+        client.connect();
+    }
 
-        // Add a marker in Sydney and move the camera
-        LatLng sydney = new LatLng(-34, 151);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+    @Override
+    protected void onStop() {
+        Log.d("FUNCTION","onStop");
+        client.disconnect();
+        super.onStop();
 
     }
+
+
+    @Override
+    public void onConnected(Bundle bundle) {
+
+        Log.d("FUNCTION","onConnected");
+
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            return;
+        }
+        mLocationRequest.setInterval(1000);
+        currentLocation= LocationServices.FusedLocationApi.getLastLocation(client);
+
+
+        if(currentLocation==null) {
+            Toast.makeText(this, "Could not fetch current location", Toast.LENGTH_LONG).show();
+            LocationServices.FusedLocationApi.requestLocationUpdates(client, mLocationRequest,this);
+        }
+        //If the retrieved location is not null place a marker at that position
+        else {
+
+            user_latitude = currentLocation.getLatitude();
+            user_longitude = currentLocation.getLongitude();
+
+
+            if (currentLocation != null)
+                Log.d("CURR LOCATION VAL", String.valueOf(currentLocation));
+            user_coordinates = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
+            cry_coordinates = new LatLng(12.827763, 80.048680);
+            eklavya_coordinated = new LatLng(12.901904, 80.093735);
+
+
+        }
+
+    }
+
+
 }
