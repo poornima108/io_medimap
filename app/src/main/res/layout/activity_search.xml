@@ -2,52 +2,54 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#ffffff"
+    tools:context="com.example.poornima1.madimap2.search"
+    android:descendantFocusability="beforeDescendants"
+    android:focusableInTouchMode="true">
+<ImageView
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@drawable/backa"
-    tools:context="com.example.poornima1.madimap2.search">
+    android:src="@drawable/untitled3"
+    android:id="@+id/imageView"
+    android:layout_alignParentTop="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:layout_marginTop="41dp" />
 
-    <android.support.v7.widget.ButtonBarLayout
-        android:layout_width="50dp"
-        android:layout_height="45dp"
-        android:id="@+id/search"
-        android:src="@drawable/searchicon2"
-        android:layout_marginRight="38dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginTop="59dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true">
-
-    </android.support.v7.widget.ButtonBarLayout>
-
-    <android.support.v4.widget.CircleImageView
-        android:layout_width="1000dp"
-        android:layout_height="50dp"
-        android:background="@drawable/searchbox"
-        android:id="@+id/view"
-        android:layout_marginTop="221dp"
-        />
-
-
-    <android.support.v7.widget.AppCompatAutoCompleteTextView
-        android:layout_width="wrap_content"
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true">
+    <android.support.design.widget.TextInputLayout
+        android:id="@+id/input_layout_password"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/searchbox"
-        android:hint="Search Medicine"
-        android:textSize="22dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="225dp"/>
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/searchbox"
+                android:hint="Medicine?"
+                android:textSize="20dp"
+                android:singleLine="true"
+                android:shadowColor="#000dff"
+                android:textIsSelectable="false" />
 
+    </android.support.design.widget.TextInputLayout>
     <Button
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:id="@+id/button"
-        android:background="@drawable/searchicon2"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_marginTop="127dp"
-        android:layout_marginRight="-35dp"
-        android:layout_below="@+id/search"
-        android:layout_alignRight="@+id/search"
-        android:layout_alignEnd="@+id/search" />
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="SEARCH MEDICINE"
+        android:layout_below="@id/input_layout_password"
+        android:background="#2f5993"
+        android:textColor="#ffffff"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginRight="10dp" />
 
+</RelativeLayout>
 </RelativeLayout>
