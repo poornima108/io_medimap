@@ -15,7 +15,21 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".search"></activity>
+        <activity android:name=".search" />
+        <activity android:name=".contact" />
+        <activity android:name=".feedback" />
+        <activity android:name=".whatsapp" >
+           <intent-filter>
+                <action android:name="shareactivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+           </intent-filter>
+        </activity>
+        <activity android:name=".shareit">
+            <intent-filter>
+                <action android:name="shareactivity" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
     </application>
 
 </manifest>

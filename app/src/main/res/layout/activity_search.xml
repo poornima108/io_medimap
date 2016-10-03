@@ -7,6 +7,9 @@
     tools:context="com.example.poornima1.madimap2.search"
     android:descendantFocusability="beforeDescendants"
     android:focusableInTouchMode="true">
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/tool"/>
 <ImageView
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
@@ -45,7 +48,7 @@
         android:layout_height="wrap_content"
         android:text="SEARCH MEDICINE"
         android:layout_below="@id/input_layout_password"
-        android:background="#2f5993"
+        android:background="#065a84"
         android:textColor="#ffffff"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="15dp"
