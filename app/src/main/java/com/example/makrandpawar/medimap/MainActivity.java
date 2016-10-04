@@ -4,6 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 import static android.R.attr.value;
 
 public class MainActivity extends AppCompatActivity {
-
+    Toolbar toolbar;
     Button findmedicine;
     EditText searchmedicine;
     DatabaseReference databaseReference;
@@ -29,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        toolbar=(Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         searchmedicine = (EditText) findViewById(R.id.searchmedicine);
         findmedicine = (Button) findViewById(R.id.findmedicine);
@@ -81,6 +88,25 @@ public class MainActivity extends AppCompatActivity {
         if (requestCode == 1){
             searchmedicine.getText().clear();
         }
+    }
+    public boolean onCreateOptionsMenu(Menu menu){
+
+        MenuInflater menuInflater=getMenuInflater();
+        menuInflater.inflate(R.menu.menu_main,menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_contactus:
+                Intent i=new Intent(MainActivity.this,contact.class);
+                startActivity(i);
+                return true;
+            case R.id.action_feedback:
+                Intent j=new Intent(MainActivity.this,feedback.class);
+                startActivity(j);
+                return true;
+        }
+        return true;
     }
 
 }

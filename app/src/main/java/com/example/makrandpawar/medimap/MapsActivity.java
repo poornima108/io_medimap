@@ -59,12 +59,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     Location currentLocation;
     GoogleApiClient client;
     static String medicinename="medicinename";
-    double user_latitude;
-    double user_longitude;
-    LatLng user_coordinates;
-    LatLng Shop1;
-    LatLng Shop2;
-    String value2,address2,name2;
+    double user_latitude,user_longitude;
+    LatLng user_coordinates,Shop1, Shop2,Shop3,Shop4,Shop5,Shop6;
     DatabaseReference databaseReference;
     String value,address,name,image;
     final Context context =this;
@@ -100,24 +96,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
        // alert= (ImageView) findViewById(R.id.abc);
         databaseReference= FirebaseDatabase.getInstance().getReferenceFromUrl("https://medimap-fbbb5.firebaseio.com/"+med);
 
-        databaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
 
-                value=dataSnapshot.child("store1").child("value").getValue().toString();
-                address=dataSnapshot.child("store1").child("address").getValue().toString();
-                name=dataSnapshot.child("store1").child("name").getValue().toString();
-               // image=dataSnapshot.child(med).child("store1").child("image").getValue().toString();
-                value2=dataSnapshot.child("store2").child("value").getValue().toString();
-                address2=dataSnapshot.child("store2").child("address").getValue().toString();
-                name2=dataSnapshot.child("store2").child("name").getValue().toString();
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-
-            }
-        });
 
 
     }
@@ -172,8 +151,17 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         Shop1=new LatLng(12.827763, 80.048680);
         Shop2=new LatLng(12.901904, 80.093735);
+        Shop3=new LatLng(12.828850, 80.093735);
+        Shop4=new LatLng(12.794870, 80.022326);
+        Shop5=new LatLng(12.856988, 80.069576);
+        Shop6=new LatLng(12.822542, 80.048650);
+
         mMap.addMarker(new MarkerOptions().position(Shop1).title("store1").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
         mMap.addMarker(new MarkerOptions().position(Shop2).title("store2").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        mMap.addMarker(new MarkerOptions().position(Shop3).title("store3").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        mMap.addMarker(new MarkerOptions().position(Shop4).title("store4").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        mMap.addMarker(new MarkerOptions().position(Shop5).title("store5").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        mMap.addMarker(new MarkerOptions().position(Shop6).title("store6").icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
         mMap.setOnMarkerClickListener(this);
 
 
@@ -253,7 +241,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     public boolean onMarkerClick(Marker marker) {
         if(marker.getTitle().equals("store1")) { // if marker source is clicked
-
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.cardrow);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -263,9 +252,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     name=dataSnapshot.child("store1").child("name").getValue().toString();
                     image=dataSnapshot.child("store1").child("image").getValue().toString();
 
-                    Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.cardrow);
-                    dialog.setTitle("store 1");
+
+                    dialog.setTitle(name);
                     TextView shopname = (TextView) dialog.findViewById(R.id.shopnametxt);
                     shopname.setText(name);
                     TextView shopaddress = (TextView) dialog.findViewById(R.id.shopaddress);
@@ -287,7 +275,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         }
         else if (marker.getTitle().equals("store2"))
         {
-
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.cardrow);
             databaseReference.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -297,9 +286,140 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     name=dataSnapshot.child("store2").child("name").getValue().toString();
                     image=dataSnapshot.child("store2").child("image").getValue().toString();
 
-                    Dialog dialog = new Dialog(context);
-                    dialog.setContentView(R.layout.cardrow);
-                    dialog.setTitle("store 2");
+
+                    dialog.setTitle(name);
+                    TextView shopname = (TextView) dialog.findViewById(R.id.shopnametxt);
+                    shopname.setText(name);
+                    TextView shopaddress = (TextView) dialog.findViewById(R.id.shopaddress);
+                    shopaddress.setText(address);
+                    TextView quantity = (TextView) dialog.findViewById(R.id.medicinequantity);
+                    quantity.setText("Available Quantitiy: "+value);
+                    ImageView shopimage = (ImageView) dialog.findViewById(R.id.shopimage);
+                    Picasso.with(context).load(image).resize(640,640).into(shopimage);
+                    dialog.show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+        else if (marker.getTitle().equals("store3"))
+        {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.cardrow);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    value=dataSnapshot.child("store3").child("value").getValue().toString();
+                    address=dataSnapshot.child("store3").child("address").getValue().toString();
+                    name=dataSnapshot.child("store3").child("name").getValue().toString();
+                    image=dataSnapshot.child("store3").child("image").getValue().toString();
+
+
+                    dialog.setTitle(name);
+                    TextView shopname = (TextView) dialog.findViewById(R.id.shopnametxt);
+                    shopname.setText(name);
+                    TextView shopaddress = (TextView) dialog.findViewById(R.id.shopaddress);
+                    shopaddress.setText(address);
+                    TextView quantity = (TextView) dialog.findViewById(R.id.medicinequantity);
+                    quantity.setText("Available Quantitiy: "+value);
+                    ImageView shopimage = (ImageView) dialog.findViewById(R.id.shopimage);
+                    Picasso.with(context).load(image).resize(640,640).into(shopimage);
+                    dialog.show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+        else if (marker.getTitle().equals("store4"))
+        {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.cardrow);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    value=dataSnapshot.child("store4").child("value").getValue().toString();
+                    address=dataSnapshot.child("store4").child("address").getValue().toString();
+                    name=dataSnapshot.child("store4").child("name").getValue().toString();
+                    image=dataSnapshot.child("store4").child("image").getValue().toString();
+
+
+                    dialog.setTitle(name);
+                    TextView shopname = (TextView) dialog.findViewById(R.id.shopnametxt);
+                    shopname.setText(name);
+                    TextView shopaddress = (TextView) dialog.findViewById(R.id.shopaddress);
+                    shopaddress.setText(address);
+                    TextView quantity = (TextView) dialog.findViewById(R.id.medicinequantity);
+                    quantity.setText("Available Quantitiy: "+value);
+                    ImageView shopimage = (ImageView) dialog.findViewById(R.id.shopimage);
+                    Picasso.with(context).load(image).resize(640,640).into(shopimage);
+                    dialog.show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+        else if (marker.getTitle().equals("store5"))
+        {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.cardrow);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    value=dataSnapshot.child("store5").child("value").getValue().toString();
+                    address=dataSnapshot.child("store5").child("address").getValue().toString();
+                    name=dataSnapshot.child("store5").child("name").getValue().toString();
+                    image=dataSnapshot.child("store5").child("image").getValue().toString();
+
+
+                    dialog.setTitle(name);
+                    TextView shopname = (TextView) dialog.findViewById(R.id.shopnametxt);
+                    shopname.setText(name);
+                    TextView shopaddress = (TextView) dialog.findViewById(R.id.shopaddress);
+                    shopaddress.setText(address);
+                    TextView quantity = (TextView) dialog.findViewById(R.id.medicinequantity);
+                    quantity.setText("Available Quantitiy: "+value);
+                    ImageView shopimage = (ImageView) dialog.findViewById(R.id.shopimage);
+                    Picasso.with(context).load(image).resize(640,640).into(shopimage);
+                    dialog.show();
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+
+        }
+        else if (marker.getTitle().equals("store6"))
+        {
+            final Dialog dialog = new Dialog(context);
+            dialog.setContentView(R.layout.cardrow);
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    value=dataSnapshot.child("store6").child("value").getValue().toString();
+                    address=dataSnapshot.child("store6").child("address").getValue().toString();
+                    name=dataSnapshot.child("store6").child("name").getValue().toString();
+                    image=dataSnapshot.child("store6").child("image").getValue().toString();
+
+
+                    dialog.setTitle(name);
                     TextView shopname = (TextView) dialog.findViewById(R.id.shopnametxt);
                     shopname.setText(name);
                     TextView shopaddress = (TextView) dialog.findViewById(R.id.shopaddress);
