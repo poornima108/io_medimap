@@ -1,0 +1,30 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:map="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        tools:context="com.example.mactavish.medimap.MapsActivity"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:layout_above="@+id/allshops"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:text="All Shops"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/allshops"
+        android:elevation="24dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="#065a84"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#ffff" />
+
+</RelativeLayout>
