@@ -18,7 +18,7 @@
         <activity android:name=".search" />
         <activity android:name=".contact" />
         <activity android:name=".feedback" />
-        <activity android:name=".whatsapp" >
+        <activity android:name=".whatsapp">
            <intent-filter>
                 <action android:name="shareactivity" />
                 <category android:name="android.intent.category.DEFAULT" />
