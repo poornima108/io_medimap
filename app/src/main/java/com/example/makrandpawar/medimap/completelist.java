@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -19,7 +20,9 @@ import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
-class completelist extends AppCompatActivity {
+import static com.example.makrandpawar.medimap.MapsActivity.medicinename;
+
+public class completelist extends AppCompatActivity {
 
     static public String nomedicine="nomedicine";
     private RecyclerView recyclerView;
@@ -47,7 +50,7 @@ class completelist extends AppCompatActivity {
         }
         public void setShopImage(Context ctx,String shopImage){
             ImageView shopimage = (ImageView) mview.findViewById(R.id.shopimage);
-            Picasso.with(ctx).load(shopImage).into(shopimage);
+            Picasso.with(ctx).load(shopImage).resize(640,640).into(shopimage);
         }
 
     }
@@ -61,7 +64,7 @@ class completelist extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         Intent intent = getIntent();
-        final String med = intent.getStringExtra(MainActivity.medicinename);
+        final String med = intent.getStringExtra(medicinename);
 
         databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://medimap-fbbb5.firebaseio.com/");
 
@@ -70,7 +73,6 @@ class completelist extends AppCompatActivity {
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.child(med).exists()){
                     DatabaseReference databaseReference1=FirebaseDatabase.getInstance().getReferenceFromUrl("https://medimap-fbbb5.firebaseio.com/"+med);
-
                     final Query query = databaseReference1.orderByChild("value").startAt(1);
 
                     final FirebaseRecyclerAdapter<medicinedb,CardViewHolder>firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<medicinedb, CardViewHolder>(
